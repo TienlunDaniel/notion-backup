@@ -68,8 +68,62 @@ def get_directories(path):
       directories.append(item)
   return directories
 
+def list_files_in_folder(creds, folder_id):
+    """
+    Lists files within a specific folder.
 
-# Example usage for /tmp/
+    Args:
+        creds: The credentials object obtained from the Google Auth library.
+        folder_id: The ID of the folder.
+
+    Returns:
+        A list of file IDs within the folder.
+    """
+    try:
+        service = build('drive', 'v3', credentials=creds)
+
+        results = service.files().list(
+            q=f"'{folder_id}' in parents",
+            spaces='drive',
+            fields='nextPageToken, files(id, name)',
+        ).execute()
+        items = results.get('files', [])
+
+        if not items:
+            print('No files found in the folder.')
+            return []
+
+        file_ids = []
+        for item in items:
+            print(f'{item["name"]} ({item["id"]})')
+            file_ids.append(item["id"])
+        return file_ids
+
+    except HttpError as error:
+        print(f'An error occurred: {error}')
+        return []
+
+def delete_files(creds, file_ids):
+    """
+    Deletes a list of files.
+
+    Args:
+        creds: The credentials object obtained from the Google Auth library.
+        file_ids: A list of file IDs to delete.
+    """
+    try:
+        service = build('drive', 'v3', credentials=creds)
+
+        for file_id in file_ids:
+            service.files().delete(fileId=file_id).execute()
+            print(f'File with ID {file_id} deleted.')
+
+    except HttpError as error:
+        print(f'An error occurred: {error}')
+
+files_ids_to_delete = list_files_in_folder(creds, GOOGLE_DRIVE_ROOT_FOLDER_ID)
+
+# Example usage for ./
 directories_in_tmp = get_directories('./')
 
 for dir_name in directories_in_tmp:
@@ -78,3 +132,6 @@ for dir_name in directories_in_tmp:
     continue
   print(F'name of the directory {dir_name}')
   drive_upload_folder(dir_name, GOOGLE_DRIVE_ROOT_FOLDER_ID)
+  print(F'start deleting files with IDs {files_ids_to_delete}')
+  delete_files(creds, files_ids_to_delete)
+
