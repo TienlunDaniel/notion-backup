@@ -132,6 +132,7 @@ for dir_name in directories_in_tmp:
     continue
   print(F'name of the directory {dir_name}')
   drive_upload_folder(dir_name, GOOGLE_DRIVE_ROOT_FOLDER_ID)
-  print(F'start deleting files with IDs {files_ids_to_delete}')
-  delete_files(creds, files_ids_to_delete)
+
+print(F'start deleting files with IDs {files_ids_to_delete}')
+delete_files(creds, files_ids_to_delete)
 
