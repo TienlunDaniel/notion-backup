@@ -51,3 +51,15 @@ jobs:
         PCLOUD_FOLDER_ID: ${{ secrets.PCLOUD_FOLDER_ID }}
 
         DOWNLOADS_DIRECTORY_PATH: /tmp/
+        
+    - name: Install Python Dep
+      run: pip install -r requirements.txt
+
+    - name: Unzip Downloaded File
+      run: python unzipUtil.py
+
+    - name: Upload Folder to Google Drive
+      run: python uploadFolders.py
+      env:
+        GOOGLE_DRIVE_ROOT_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_ROOT_FOLDER_ID }}
+        GOOGLE_DRIVE_SERVICE_ACCOUNT_SECRET_JSON: ${{ secrets.GOOGLE_DRIVE_SERVICE_ACCOUNT_SECRET_JSON }}
