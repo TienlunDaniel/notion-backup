@@ -70,7 +70,7 @@ def get_directories(path):
 
 
 # Example usage for /tmp/
-directories_in_tmp = get_directories('/tmp')
+directories_in_tmp = get_directories('/tmp/')
 
 for dir_name in directories_in_tmp:
   if 'notion' not in dir_name:
