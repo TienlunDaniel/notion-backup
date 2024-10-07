@@ -73,7 +73,7 @@ def get_directories(path):
 directories_in_tmp = get_directories('./')
 
 for dir_name in directories_in_tmp:
-  if 'notion' not in dir_name:
+  if 'Export' not in dir_name:
     print(F'directory {dir_name}')
     continue
   print(F'name of the directory {dir_name}')
