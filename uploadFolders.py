@@ -2,9 +2,10 @@ from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 from google.oauth2 import service_account
 import os
+import json
 
 # Replace with your own credentials
-SERVICE_ACCOUNT_INFO = os.environ['GOOGLE_DRIVE_SERVICE_ACCOUNT_SECRET_JSON']
+SERVICE_ACCOUNT_INFO = json.loads(os.environ['GOOGLE_DRIVE_SERVICE_ACCOUNT_SECRET_JSON'])
 GOOGLE_DRIVE_ROOT_FOLDER_ID = os.environ['GOOGLE_DRIVE_ROOT_FOLDER_ID']
 
 SCOPES = ['https://www.googleapis.com/auth/drive']
