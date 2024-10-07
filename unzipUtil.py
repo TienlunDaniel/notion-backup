@@ -35,8 +35,9 @@ def list_zip_files(directory):
   return zip_files
 
 # Example usage for /tmp/
-zip_files_in_tmp = list_zip_files('/tmp')
+zip_files_in_tmp = list_zip_files('/tmp/')
 
 for zip_file in zip_files_in_tmp:
+    print(f"Current script path: {os.path.abspath(__file__)}")
     print(F'name of the zip file {zip_file}')
     extract(zip_file)
