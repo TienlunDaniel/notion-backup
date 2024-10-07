@@ -70,10 +70,11 @@ def get_directories(path):
 
 
 # Example usage for /tmp/
-directories_in_tmp = get_directories('/tmp/')
+directories_in_tmp = get_directories('/tmp')
 
 for dir_name in directories_in_tmp:
   if 'notion' not in dir_name:
+    print(F'directory {dir_name}')
     continue
   print(F'name of the directory {dir_name}')
   drive_upload_folder(dir_name, GOOGLE_DRIVE_ROOT_FOLDER_ID)
