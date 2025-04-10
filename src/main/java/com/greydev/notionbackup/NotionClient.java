@@ -112,6 +112,7 @@ public class NotionClient {
 				return Optional.empty();
 			}
 			log.info("Download link extracted");
+			log.info("Download link : " + downloadLink.get());
 
 			log.info("Downloading file...");
 			String fileName = String.format("%s-%s%s_%s%s",
